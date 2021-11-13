@@ -1,0 +1,4 @@
+za/co/wethinkcode/server/domain/Quote.class
+za/co/wethinkcode/server/api/QuoteServer.class
+za/co/wethinkcode/server/database/QuoteDB.class
+za/co/wethinkcode/server/api/QuoteApiHandler.class
