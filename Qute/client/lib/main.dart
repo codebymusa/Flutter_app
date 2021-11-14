@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qutequotes/model/quotes_model.dart';
-import 'pages/intro_page.dart';
+import 'pages/front_page.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(const MyApp());
@@ -12,7 +12,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => QuotesModel())],
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => QuotesModel(),
+        ),
+        ChangeNotifierProvider(create: (_) => QuoteModel())
+      ],
       child: const IntroPage(),
     );
   }

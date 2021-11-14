@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qutequotes/pages/list_view.dart';
+import 'package:qutequotes/pages/home_page.dart';
 
 class FrontPage extends StatelessWidget {
   const FrontPage({Key? key}) : super(key: key);
@@ -39,13 +39,17 @@ class FrontPage extends StatelessWidget {
               child: ElevatedButton(
                 child: const Text("Let's goo!"),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const HomePage()));
                 },
                 style: ElevatedButton.styleFrom(
                   primary: Colors.black,
-                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-                  textStyle:
-                  const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                  textStyle: const TextStyle(
+                      fontSize: 30, fontWeight: FontWeight.bold),
                 ),
               ),
             ),

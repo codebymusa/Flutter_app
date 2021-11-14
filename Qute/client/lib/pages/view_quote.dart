@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:qutequotes/pages/full_screen_page.dart';
+import 'package:provider/src/provider.dart';
+import 'package:qutequotes/model/quotes_model.dart';
+import 'package:qutequotes/pages/add_quote.dart';
+import 'package:qutequotes/pages/quotes.dart';
 
 class ViewQuote extends StatefulWidget {
   const ViewQuote({Key? key}) : super(key: key);
@@ -11,6 +14,7 @@ class ViewQuote extends StatefulWidget {
 class _HomePageState extends State<ViewQuote> {
   @override
   Widget build(BuildContext context) {
+    Quotes quote = context.read<QuoteModel>().quote;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
@@ -19,6 +23,10 @@ class _HomePageState extends State<ViewQuote> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            InkWell(
+              onTap: () => Navigator.pop(context),
+              child: const Icon(Icons.arrow_back),
+            ),
             const Spacer(),
             Image.asset(
               "assets/quote.png",
@@ -26,24 +34,25 @@ class _HomePageState extends State<ViewQuote> {
               width: 40,
               // color: Colors.white,
             ),
-            const SizedBox(height: 30,),
-            const Text("Don't let the nocise of others' opinions drown you out of your inner voice",
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20,)
+            const SizedBox(
+              height: 30,
             ),
-            const SizedBox(height: 30,),
-            const Text("Steve Jobs",
-            style: TextStyle(color: Colors.black),
+            Text(quote.quote,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                )),
+            const SizedBox(
+              height: 30,
             ),
-          const Spacer(),
-          IconButton(
-            icon: const Icon(Icons.add,
-            color: Colors.black,
-            ),
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>const FullScreenPage()));
-            },
+            Text(
+              quote.author,
+              style: const TextStyle(color: Colors.black),
             ),
             const Spacer(),
+            
+            
           ],
         ),
       ),
