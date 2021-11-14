@@ -2,8 +2,6 @@ package za.co.wethinkcode.server.api;
 
 import io.javalin.Javalin;
 
-import static io.javalin.apibuilder.ApiBuilder.*;
-
 public class QuoteServer {
     private final Javalin server;
     private QuoteApiHandler quoteApiHandler = new QuoteApiHandler();

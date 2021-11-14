@@ -3,4 +3,8 @@ class Quotes {
   final String author;
 
   Quotes(this.quote, this.author);
+
+  factory Quotes.fromJson(Map<String, dynamic> json) {
+    return Quotes(json['text'], json['name']);
+  }
 }

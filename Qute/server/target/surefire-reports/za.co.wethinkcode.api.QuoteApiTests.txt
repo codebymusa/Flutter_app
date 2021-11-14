@@ -1,0 +1,10 @@
+-------------------------------------------------------------------------------
+Test set: za.co.wethinkcode.api.QuoteApiTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.036 s <<< FAILURE! - in za.co.wethinkcode.api.QuoteApiTests
+za.co.wethinkcode.api.QuoteApiTests  Time elapsed: 0.031 s  <<< ERROR!
+java.lang.RuntimeException: java.sql.SQLException: No suitable driver found for jbdc:sqlite:Quotes
+	at za.co.wethinkcode.api.QuoteApiTests.startServer(QuoteApiTests.java:24)
+Caused by: java.sql.SQLException: No suitable driver found for jbdc:sqlite:Quotes
+	at za.co.wethinkcode.api.QuoteApiTests.startServer(QuoteApiTests.java:24)
+

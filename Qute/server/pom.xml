@@ -15,97 +15,146 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.xerial</groupId>
-            <artifactId>sqlite-jdbc</artifactId>
-            <version>3.36.0.3</version>
-        </dependency>
-    
-    
-    <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-databind</artifactId>
-        <version>2.12.4</version>
-    </dependency>
-    <dependency>
-        <groupId>org.xerial</groupId>
-        <artifactId>sqlite-jdbc</artifactId>
-        <version>3.36.0.3</version>
-    </dependency>
-
-
-    <dependency>
-        <groupId>io.javalin</groupId>		
-        <artifactId>javalin</artifactId>
-        <version>4.1.0</version>
-    </dependency>
-    <dependency>
-        <groupId>org.xerial</groupId>
-        <artifactId>sqlite-jdbc</artifactId>
-        <version>3.36.0.3</version>
-    </dependency>
-
-
-    <dependency>
-        <groupId>org.slf4j</groupId>		
-        <artifactId>slf4j-simple</artifactId>
-        <version>1.7.31</version>
-    </dependency>
-    <dependency>
-        <groupId>org.xerial</groupId>
-        <artifactId>sqlite-jdbc</artifactId>
-        <version>3.36.0.3</version>
-    </dependency>
-
-
-    <dependency>
         <groupId>com.konghq</groupId>
         <artifactId>unirest-java</artifactId>
         <version>3.13.0</version>
         <scope>test</scope>
-    </dependency>
-    
-    
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>RELEASE</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>net.lemnik</groupId>
-            <artifactId>eodsql</artifactId>
-            <version>2.2</version>
+        <groupId>io.javalin</groupId>
+        <artifactId>javalin</artifactId>
+        <version>4.1.0</version>
         </dependency>
-
-        
-    </dependencies>
-
-    <build>
+        <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-simple</artifactId>
+        <version>1.7.31</version>
+        </dependency>
+        <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <version>5.6.3</version>
+        <scope>test</scope>
+        </dependency>
+        <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-params</artifactId>
+        <version>5.7.0</version>
+        <scope>test</scope>
+        </dependency>
+        <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.13.2</version>
+        <scope>test</scope>
+        </dependency>
+        <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>2.12.4</version>
+        </dependency>
+        <dependency>
+        <groupId>net.lemnik</groupId>
+        <artifactId>eodsql</artifactId>
+        <version>2.2</version>
+        </dependency>
+        <dependency>
+        <groupId>org.xerial</groupId>
+        <artifactId>sqlite-jdbc</artifactId>
+        <version>3.36.0.3</version>
+        </dependency>
+        </dependencies>
+        <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-install-plugin</artifactId>
-                <version>2.5.2</version>
-                <executions>
-                    <execution>
-                        <?m2e execute onConfiguration?>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>install-file</goal>
-                        </goals>
-                        <configuration>
-                            <groupId>net.lemnik</groupId>
-                            <artifactId>eodsql</artifactId>
-                            <version>2.2</version>
-                            <packaging>jar</packaging>
-                            <file>${basedir}/eodsql/eodsql.jar</file>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+        <plugin>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.7.1</version>
+        </plugin>
+        <plugin>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>3.0.0</version>
+        </plugin>
+        <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.22.1</version>
+        </plugin>
+        <plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>2.4.1</version>
+        <configuration>
+        <filesets>
+        <fileset>
+        <directory>libs</directory>
+        <includes>
+        <include>**</include>
+        </includes>
+        <followSymlinks>false</followSymlinks>
+        </fileset>
+        </filesets>
+        </configuration>
+        </plugin>
+        <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+        <execution>
+        <phase>package</phase>
+        <goals>
+        <goal>single</goal>
+        </goals>
+        <configuration>
+        <archive>
+        <manifest>
+        <addClasspath>true</addClasspath>
+        <mainClass>za.co.wethinkcode.qutequotes.QuteQuotesServer</mainClass>
+        </manifest>
+        </archive>
+        <descriptorRefs>
+        <descriptorRef>jar-with-dependencies</descriptorRef>
+        </descriptorRefs>
+        <!--  changes the name of the jar file  -->
+        <finalName>qute-quote-server-${project.version}</finalName>
+        <!--  This removes the "jar-with-dependencies" name  -->
+        <appendAssemblyId>false</appendAssemblyId>
+        <!--  moving the jar file to the output folder  -->
+        <outputDirectory>${application}</outputDirectory>
+        </configuration>
+        </execution>
+        </executions>
+        </plugin>
+        <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-install-plugin</artifactId>
+        <version>2.5.2</version>
+        <executions>
+        <execution>
+        <?m2e execute onConfiguration?>
+        <phase>initialize</phase>
+        <goals>
+        <goal>install-file</goal>
+        </goals>
+        <configuration>
+        <groupId>net.lemnik</groupId>
+        <artifactId>eodsql</artifactId>
+        <version>2.2</version>
+        <packaging>jar</packaging>
+        <file>${basedir}/eodsql/eodsql.jar</file>
+        </configuration>
+        </execution>
+        </executions>
+        </plugin>
+        <!--  Removes default jar file  -->
+        <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.3.1</version>
+        <executions>
+        <execution>
+        <id>default-jar</id>
+        <phase>none</phase>
+        </execution>
+        </executions>
+        </plugin>
         </plugins>
-    </build>
-
-    
-
+        </build>
 </project>
