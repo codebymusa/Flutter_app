@@ -17,7 +17,7 @@ public class QuoteApiHandler {
 
     public QuoteApiHandler(){
         try {
-            this.Connection = DriverManager.getConnection("jbdc:sqlite:Quotes");
+            this.Connection = DriverManager.getConnection("jdbc:sqlite:Quotes");
         }catch(SQLException e){
             throw new RuntimeException(e);
 
