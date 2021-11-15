@@ -13,42 +13,44 @@ class HomePage extends StatelessWidget {
     return Consumer<QuotesModel>(builder: (context, quotes, child) {
       return Scaffold(
           backgroundColor: Colors.white,
-          body: FutureBuilder<List<Quotes>>(builder: (context, snap) {
-            if (snap.hasData) {
-              return Stack(children: [
-                ListView.separated(
-                    itemBuilder: (context, i) {
-                      return Column(children: [
-                        ListTile(
-                          title: _buildRow(snap.data![i], context),
-                        )
-                      ]);
-                    },
-                    separatorBuilder: (context, i) => const Divider(),
-                    itemCount: snap.data!.length),
-                const Spacer(),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: FloatingActionButton(
-                        backgroundColor: Colors.black,
-                        child: const Icon(
-                          Icons.add,
-                          color: Colors.white,
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const AddQuote()));
+          body: FutureBuilder<List<Quotes>>(
+              future: quotes.quotes,
+              builder: (context, snap) {
+                if (snap.hasData) {
+                  return Stack(children: [
+                    ListView.separated(
+                        itemBuilder: (context, i) {
+                          return Column(children: [
+                            ListTile(
+                              title: _buildRow(snap.data![i], context),
+                            )
+                          ]);
                         },
-                      )),
-                )
-              ]);
-            }
-            return const Text("Not working");
-          }));
+                        separatorBuilder: (context, i) => const Divider(),
+                        itemCount: snap.data!.length),
+                    const Spacer(),
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: Padding(
+                          padding: const EdgeInsets.all(15),
+                          child: FloatingActionButton(
+                            backgroundColor: Colors.black,
+                            child: const Icon(
+                              Icons.add,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => AddQuote()));
+                            },
+                          )),
+                    )
+                  ]);
+                }
+                return const Center(child: CircularProgressIndicator());
+              }));
     });
   }
 

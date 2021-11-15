@@ -3,16 +3,11 @@ import 'package:provider/src/provider.dart';
 import 'package:qutequotes/model/quotes_model.dart';
 import 'package:qutequotes/pages/quotes.dart';
 
-class AddQuote extends StatefulWidget {
-  const AddQuote({Key? key}) : super(key: key);
-
-  @override
-  _AddQuoteState createState() => _AddQuoteState();
-}
-
-class _AddQuoteState extends State<AddQuote> {
+class AddQuote extends StatelessWidget {
   final TextEditingController quoteController = TextEditingController();
   final TextEditingController authorController = TextEditingController();
+
+  AddQuote({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,6 +18,10 @@ class _AddQuoteState extends State<AddQuote> {
             width: 450,
             child: Column(
               children: [
+                const Spacer(),
+                const Text("Add Quote",
+                    style:
+                        TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
                 const Spacer(),
                 TextField(
                   controller: quoteController,
@@ -47,11 +46,12 @@ class _AddQuoteState extends State<AddQuote> {
                     if (quoteController.text.isEmpty) {
                       return;
                     }
-                    context.read<QuotesModel>().addQuote(Quotes(
-                        quoteController.text,
-                        (authorController.text.isEmpty)
-                            ? 'Anonymous'
-                            : authorController.text));
+                    Provider.of<QuotesModel>(context, listen: false).addQuote(
+                        Quotes(
+                            quoteController.text,
+                            (authorController.text.isEmpty)
+                                ? 'Anonymous'
+                                : authorController.text));
                     Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(

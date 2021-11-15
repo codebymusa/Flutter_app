@@ -5,16 +5,30 @@ import 'package:qutequotes/pages/quotes.dart';
 import 'package:http/http.dart' as http;
 
 Future<List<Quotes>> fetchQuotes() async {
-  List<Quotes> quotes = [];
   final response =
-      await http.get(Uri.parse('http://5d5a-102-39-20-46.ngrok.io/quotes'));
+      await http.get(Uri.parse('http://5f0a-102-39-20-46.ngrok.io/quotes'));
   if (response.statusCode == 200) {
-    Iterable quotesJson = jsonDecode(response.body);
-    quotesJson.map((e) => quotes.add(Quotes.fromJson(e)));
-    return quotes;
-  } else {
-    throw Exception('jdnfsjfhjdshfjhdsjfhdjsfhjsd');
+    Iterable quotes = jsonDecode(response.body);
+    return List<Quotes>.from(quotes.map((e) => Quotes.fromJson(e)));
+  } else if (response.statusCode == 404) {
+    return [];
+  } else if (response.statusCode == 500) {}
+
+  return [];
+}
+
+Future<Quotes> _addQuote(Quotes quote) async {
+  final response = await http.post(
+      Uri.parse(" http://5f0a-102-39-20-46.ngrok.io/quote"),
+      headers: <String, String>{
+        "Content-Type": "application/json; charset=UTF-8"
+      },
+      body: jsonEncode(
+          <String, String>{"author": quote.author, "quote": quote.quote}));
+  if (response.statusCode == 201) {
+    return Quotes.fromJson(jsonDecode(response.body));
   }
+  return Quotes("", "");
 }
 
 class QuotesModel with ChangeNotifier {
@@ -43,7 +57,7 @@ class QuotesModel with ChangeNotifier {
   Future<Quotes> quote(int index) => _quotes.then((value) => value[index]);
 
   void addQuote(Quotes quotes) {
-    // _quotes.add(quotes);
+    _addQuote(quotes);
     notifyListeners();
   }
 }

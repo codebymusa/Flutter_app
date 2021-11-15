@@ -5,6 +5,6 @@ class Quotes {
   Quotes(this.quote, this.author);
 
   factory Quotes.fromJson(Map<String, dynamic> json) {
-    return Quotes(json['text'], json['name']);
+    return Quotes(json['quote'], json['author']);
   }
 }
