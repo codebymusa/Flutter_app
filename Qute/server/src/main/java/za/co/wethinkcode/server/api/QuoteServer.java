@@ -1,7 +1,6 @@
 package za.co.wethinkcode.server.api;
 
 import io.javalin.Javalin;
-import za.co.wethinkcode.server.api.QuoteApiHandler;
 
 public class QuoteServer {
     private final Javalin server;
